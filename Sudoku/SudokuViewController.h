@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class BoardView;
+@class ButtonsView;
+
 @interface SudokuViewController : UIViewController
+
+@property (strong, nonatomic) BoardView *boardView;
+@property (strong, nonatomic) ButtonsView *buttonView;
 
 @end

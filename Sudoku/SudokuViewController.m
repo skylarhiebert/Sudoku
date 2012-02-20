@@ -7,8 +7,13 @@
 //
 
 #import "SudokuViewController.h"
+#import "BoardView.h"
+#import "ButtonsView.h"
 
 @implementation SudokuViewController
+
+@synthesize boardView;
+@synthesize buttonView;
 
 - (void)didReceiveMemoryWarning
 {
@@ -20,8 +25,15 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"viewDidLoad");
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    boardView = [[BoardView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+    [boardView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:boardView];
+    buttonView = [[ButtonsView alloc] initWithFrame:CGRectMake(0, 320, 320, 140)];
+    [buttonView setBackgroundColor:[UIColor grayColor]];
+    [self.view addSubview:buttonView];
 }
 
 - (void)viewDidUnload
@@ -55,6 +67,16 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
+        boardView.frame = CGRectMake(0, 0, 320, 320);
+        buttonView.frame = CGRectMake(0, 320, 320, 140);
+    } else {
+        boardView.frame = CGRectMake(0, 0, 300, 300);
+        buttonView.frame = CGRectMake(300, 0, 180, 300);
+    }
 }
 
 @end

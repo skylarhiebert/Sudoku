@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		141BAE4C14F1AC0C00FAB375 /* BoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 141BAE4B14F1AC0C00FAB375 /* BoardView.m */; };
+		141BAE5414F1BFCF00FAB375 /* SudokuBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 141BAE5314F1BFCF00FAB375 /* SudokuBoard.m */; };
+		141BAE5714F1C79900FAB375 /* ButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 141BAE5614F1C79800FAB375 /* ButtonsView.m */; };
 		300F3A5A14E4823500314AEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 300F3A5914E4823500314AEA /* UIKit.framework */; };
 		300F3A5C14E4823500314AEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 300F3A5B14E4823500314AEA /* Foundation.framework */; };
 		300F3A5E14E4823500314AEA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 300F3A5D14E4823500314AEA /* CoreGraphics.framework */; };
@@ -18,6 +21,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		141BAE4A14F1AC0C00FAB375 /* BoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardView.h; sourceTree = "<group>"; };
+		141BAE4B14F1AC0C00FAB375 /* BoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardView.m; sourceTree = "<group>"; };
+		141BAE5214F1BFCF00FAB375 /* SudokuBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SudokuBoard.h; sourceTree = "<group>"; };
+		141BAE5314F1BFCF00FAB375 /* SudokuBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SudokuBoard.m; sourceTree = "<group>"; };
+		141BAE5514F1C79800FAB375 /* ButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonsView.h; sourceTree = "<group>"; };
+		141BAE5614F1C79800FAB375 /* ButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonsView.m; sourceTree = "<group>"; };
 		300F3A5514E4823500314AEA /* Sudoku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sudoku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		300F3A5914E4823500314AEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		300F3A5B14E4823500314AEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -79,8 +88,14 @@
 			children = (
 				300F3A6814E4823500314AEA /* SudokuAppDelegate.h */,
 				300F3A6914E4823500314AEA /* SudokuAppDelegate.m */,
+				141BAE4A14F1AC0C00FAB375 /* BoardView.h */,
+				141BAE4B14F1AC0C00FAB375 /* BoardView.m */,
 				300F3A6B14E4823500314AEA /* SudokuViewController.h */,
 				300F3A6C14E4823500314AEA /* SudokuViewController.m */,
+				141BAE5214F1BFCF00FAB375 /* SudokuBoard.h */,
+				141BAE5314F1BFCF00FAB375 /* SudokuBoard.m */,
+				141BAE5514F1C79800FAB375 /* ButtonsView.h */,
+				141BAE5614F1C79800FAB375 /* ButtonsView.m */,
 				300F3A6E14E4823500314AEA /* SudokuViewController.xib */,
 				300F3A6014E4823500314AEA /* Supporting Files */,
 			);
@@ -164,6 +179,9 @@
 				300F3A6614E4823500314AEA /* main.m in Sources */,
 				300F3A6A14E4823500314AEA /* SudokuAppDelegate.m in Sources */,
 				300F3A6D14E4823500314AEA /* SudokuViewController.m in Sources */,
+				141BAE4C14F1AC0C00FAB375 /* BoardView.m in Sources */,
+				141BAE5414F1BFCF00FAB375 /* SudokuBoard.m in Sources */,
+				141BAE5714F1C79900FAB375 /* ButtonsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +293,7 @@
 				300F3A7514E4823500314AEA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
