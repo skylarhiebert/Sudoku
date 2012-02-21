@@ -62,9 +62,7 @@
     button.tag = 10;
     [button.layer setBorderWidth:3.0];
     [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [button setTitle:[NSString stringWithFormat:@"%d", 10] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [button setImage:[UIImage imageNamed:@"pencil.png"] forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor whiteColor]];
     [_buttonView addSubview:button];
     
@@ -73,8 +71,7 @@
     button.tag = 11;
     [button.layer setBorderWidth:3.0];
     [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [button setTitle:[NSString stringWithFormat:@"%d", 11] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"text_cancel.png"] forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor whiteColor]];
     [_buttonView addSubview:button];
     
@@ -83,8 +80,7 @@
     button.tag = 12;
     [button.layer setBorderWidth:3.0];
     [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [button setTitle:[NSString stringWithFormat:@"%d", 12] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"menu-i.gif.png"] forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor whiteColor]];
     [_buttonView addSubview:button];
 

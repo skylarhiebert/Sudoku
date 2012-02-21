@@ -9,13 +9,13 @@
 #import "SudokuBoard.h"
 
 @implementation SudokuBoard
-/*
-- (id) init { // Create empty board
 
+- (id) init { // Create empty board
+    
 }
 
 - (void) freshGame:(NSString *)boardString { // Load a new game encoded with given string
-
+    
 }
 
 - (int) numberAtRow:(int)row Column:(int)col { // Fetch the number stored in the cell { Zero indicates empty
@@ -57,5 +57,5 @@
 - (void) clearAllPencilsAtRow:(int)row Column:(int)col { // Clear all penciled in values
 
 }
-*/
+
 @end

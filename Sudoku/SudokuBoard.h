@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SudokuBoard : NSObject
-/*
+
 - (id) init; // Create empty board
 - (void) freshGame:(NSString *)boardString; // Load a new game encoded with given string
 - (int) numberAtRow:(int)row Column:(int)col; // Fetch the number stored in the cell; Zero indicates empty
@@ -22,6 +22,6 @@
 - (void) setPencil:(int)n AtRow:(int)row Column:(int)col; // Pencil the value n in.
 - (void) clearPencil:(int)n AtRow:(int)row Column:(int)col; // Clear pencil value n
 - (void) clearAllPencilsAtRow:(int)row Column:(int)col; // Clear all penciled in values
-*/
+
 
 @end
