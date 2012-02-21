@@ -6,14 +6,16 @@
 //  Copyright (c) 2012 Washington State University. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "SudokuViewController.h"
 #import "BoardView.h"
 #import "ButtonsView.h"
 
 @implementation SudokuViewController
 
-@synthesize boardView;
-@synthesize buttonView;
+@synthesize boardView = _boardView;
+@synthesize buttonView = _buttonView;
+@synthesize boardModel = _boardModel;
 
 - (void)didReceiveMemoryWarning
 {
@@ -28,12 +30,65 @@
     NSLog(@"viewDidLoad");
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    boardView = [[BoardView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
-    [boardView setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:boardView];
-    buttonView = [[ButtonsView alloc] initWithFrame:CGRectMake(0, 320, 320, 140)];
-    [buttonView setBackgroundColor:[UIColor grayColor]];
-    [self.view addSubview:buttonView];
+    _boardView = [[BoardView alloc] initWithFrame:CGRectMake(0, 0, 320, 320) AndBoardModel:_boardModel];
+    [_boardView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:_boardView];
+    _buttonView = [[ButtonsView alloc] initWithFrame:CGRectMake(0, 320, 320, 140)];
+    [_buttonView setBackgroundColor:[UIColor grayColor]];
+    
+    // Add buttons to buttonView
+    for (int i = 0; i < 9; i++) {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetLineWidth(context, 2);
+        [[UIColor blackColor] setStroke];
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:30];
+        NSString *title = [NSString stringWithFormat:@"%d", i+1];
+        [button setTitle:title forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [button setBackgroundColor:[UIColor whiteColor]];
+        [button.layer setBorderWidth:3.0];
+        [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
+        button.tag = i+1;
+        //[button setBackgroundColor:[UIColor whiteColor]];
+
+        //[button s
+        [_buttonView addSubview:button];
+    }
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.titleLabel.font = [UIFont boldSystemFontOfSize:30];
+    button.tag = 10;
+    [button.layer setBorderWidth:3.0];
+    [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [button setTitle:[NSString stringWithFormat:@"%d", 10] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [button setBackgroundColor:[UIColor whiteColor]];
+    [_buttonView addSubview:button];
+    
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.titleLabel.font = [UIFont boldSystemFontOfSize:30];
+    button.tag = 11;
+    [button.layer setBorderWidth:3.0];
+    [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [button setTitle:[NSString stringWithFormat:@"%d", 11] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor whiteColor]];
+    [_buttonView addSubview:button];
+    
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.titleLabel.font = [UIFont boldSystemFontOfSize:30];
+    button.tag = 12;
+    [button.layer setBorderWidth:3.0];
+    [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
+    [button setTitle:[NSString stringWithFormat:@"%d", 12] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [button setBackgroundColor:[UIColor whiteColor]];
+    [_buttonView addSubview:button];
+
+    [self.view addSubview:_buttonView];
 }
 
 - (void)viewDidUnload
@@ -71,11 +126,11 @@
 
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
-        boardView.frame = CGRectMake(0, 0, 320, 320);
-        buttonView.frame = CGRectMake(0, 320, 320, 140);
+        _boardView.frame = CGRectMake(0, 0, 320, 320);
+        _buttonView.frame = CGRectMake(0, 320, 320, 140);
     } else {
-        boardView.frame = CGRectMake(0, 0, 300, 300);
-        buttonView.frame = CGRectMake(300, 0, 180, 300);
+        _boardView.frame = CGRectMake(0, 0, 300, 300);
+        _buttonView.frame = CGRectMake(300, 0, 180, 300);
     }
 }
 

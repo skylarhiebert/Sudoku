@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class SudokuBoard;
+
 @interface BoardView : UIView
 
-
-//@property <CLASS> boardModel;
+@property (weak, nonatomic) SudokuBoard *boardModel;
 @property (assign) NSInteger selectedRow;
 @property (assign) NSInteger selectedCol;
+
+- (id) initWithFrame:(CGRect)frame AndBoardModel:(SudokuBoard *)boardModel;
 
 @end

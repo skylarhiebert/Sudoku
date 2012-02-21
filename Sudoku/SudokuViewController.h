@@ -10,10 +10,12 @@
 
 @class BoardView;
 @class ButtonsView;
+@class SudokuBoard;
 
 @interface SudokuViewController : UIViewController
 
 @property (strong, nonatomic) BoardView *boardView;
 @property (strong, nonatomic) ButtonsView *buttonView;
+@property (strong, nonatomic) SudokuBoard *boardModel;
 
 @end

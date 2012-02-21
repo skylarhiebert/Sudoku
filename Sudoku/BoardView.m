@@ -7,6 +7,7 @@
 //
 
 #import "BoardView.h"
+#import "SudokuBoard.h"
 
 @interface BoardView() {
     UITapGestureRecognizer *fingerTapRecognizer;
@@ -19,12 +20,13 @@
 
 @implementation BoardView
 
-@synthesize selectedRow = _selectedRow, selectedCol = _selectedCol;
+@synthesize selectedRow = _selectedRow, selectedCol = _selectedCol, boardModel = _boardModel;
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame AndBoardModel:(SudokuBoard *) boardModel
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _boardModel = boardModel;
         [self addTapGestureRecognizer];
     }
     return self;
@@ -32,7 +34,7 @@
 
 
 -(void) addTapGestureRecognizer {
-    NSLog(@"addTapGestureRecognizer:");
+    NSLog(@"addTapGestureRecognizer:boardView");
     fingerTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleFingerTap:)];
     fingerTapRecognizer.numberOfTapsRequired = 1;
     [self addGestureRecognizer:fingerTapRecognizer];
@@ -54,7 +56,7 @@
     
     if (0 <= row && row < 9 && 0 <= col && col < 9) {
         if (row != _selectedRow || col != _selectedCol) {
-            //if (board != nil ** ![board NumberIsFixedtRow:row Column:col]) {
+            //if (boardModel != nil ** ![board NumberIsFixedtRow:row Column:col]) {
                 _selectedRow = row;
                 _selectedCol = col;
                 [self setNeedsDisplay];
@@ -77,7 +79,7 @@
     const CGFloat delta = gridSize / 3;
     const CGFloat d = delta / 3;
     const CGFloat s = d / 3;
-      
+      	
     // Draw delta squares 3x3
     for(int row = 0; row < 3; row++) {
         for(int col = 0; col < 3; col++) {       
