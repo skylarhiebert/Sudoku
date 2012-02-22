@@ -10,6 +10,9 @@
 
 @interface SudokuBoard : NSObject
 
+@property (strong, nonatomic) NSArray *board;
+@property (strong, nonatomic) NSMutableArray *userBoard;
+
 - (id) init; // Create empty board
 - (void) freshGame:(NSString *)boardString; // Load a new game encoded with given string
 - (int) numberAtRow:(int)row Column:(int)col; // Fetch the number stored in the cell; Zero indicates empty

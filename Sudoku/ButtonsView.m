@@ -9,11 +9,11 @@
 #import "ButtonsView.h"
 
 @interface ButtonsView() {
-    UITapGestureRecognizer *fingerTapRecognizer;
+    //UITapGestureRecognizer *fingerTapRecognizer;
 }
 
--(void) addTapGestureRecognizer;
--(void) handleFingerTap:(UIGestureRecognizer*)sender;
+//-(void) addTapGestureRecognizer;
+//-(void) handleFingerTap:(UIGestureRecognizer*)sender;
 
 @end
 
@@ -26,11 +26,12 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self addTapGestureRecognizer];
+        //[self addTapGestureRecognizer];
     }
     return self;
 }
 
+/*
 -(void) addTapGestureRecognizer {
     NSLog(@"addTapGestureRecognizer:");
     fingerTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleFingerTap:)];
@@ -75,6 +76,7 @@
         }      
     }
 }
+*/
 
 - (void) layoutSubviews {
     //CGContextRef context = UIGraphicsGetCurrentContext();
@@ -109,11 +111,6 @@
             }
         }
     }
-}
-
-- (IBAction)pencilPressed:(UIButton *)sender {
-    _pencilEnabled = sender.selected != _pencilEnabled;
-    sender.highlighted = NO;
 }
 
 /*

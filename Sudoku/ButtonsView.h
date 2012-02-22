@@ -14,6 +14,5 @@
 @property (assign) NSInteger selectedCol;
 @property BOOL pencilEnabled;
 
-- (IBAction)pencilPressed:(UIButton *)sender;
 
 @end

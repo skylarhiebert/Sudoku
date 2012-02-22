@@ -17,5 +17,11 @@
 @property (strong, nonatomic) BoardView *boardView;
 @property (strong, nonatomic) ButtonsView *buttonView;
 @property (strong, nonatomic) SudokuBoard *boardModel;
+@property BOOL pencilEnabled;
+
+- (IBAction)pencilPressed:(UIButton *)sender;
+- (IBAction)numberPressed:(UIButton *)sender;
+- (IBAction)clearCellPressed:(UIButton *)sender;
+- (IBAction)menuPressed:(UIButton *)sender;
 
 @end

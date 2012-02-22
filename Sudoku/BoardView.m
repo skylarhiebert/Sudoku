@@ -79,6 +79,11 @@
     const CGFloat delta = gridSize / 3;
     const CGFloat d = delta / 3;
     const CGFloat s = d / 3;
+    
+    [[UIColor lightGrayColor] setFill];
+    CGContextFillRect(context, CGRectMake(origin.x + _selectedCol * d, 
+                                          origin.y + _selectedRow * d, 
+                                          d, d));
       	
     // Draw delta squares 3x3
     for(int row = 0; row < 3; row++) {
@@ -86,18 +91,9 @@
             // Draw internal delta grid 3x3
             for (int dRow = 0; dRow < 3; dRow++) {
                 for (int dCol = 0; dCol < 3 ; dCol++) {
-                    //NSLog(@"col,row:%i, %d ; dCol,dRow:%i, %i", col, row, dCol, dRow);
-                    /*
-                    if (origin.x + _selectedCol * d == origin.x + col * delta + dCol * d && 
-                        origin.y + _selectedRow * d == origin.y + row * delta + dRow * d) {
-                        NSLog(@"setColor:lightGray");
-                        [[UIColor lightGrayColor] setFill];
-                    } else {
-                        [[UIColor whiteColor] setFill];
-                    }
-                     */
                     CGContextSetLineWidth(context, 2);
                     [[UIColor blackColor] setStroke];
+
                     CGContextAddRect(context, CGRectMake(origin.x + col * delta + dCol * d, 
                                                          origin.y + row * delta + dRow * d, 
                                                          d, d));
@@ -125,18 +121,6 @@
             CGContextStrokePath(context);
         }
     }
-    
-    // Draw board border
-    //CGContextSetLineWidth(context, 5);
-    //[[UIColor blackColor] setStroke];
-    //CGContextAddRect(context, CGRectMake(origin.x, origin.y, gridSize, gridSize));
-    //CGContextStrokePath(context);
-
-    
-    [[UIColor lightGrayColor] setFill];
-    CGContextFillRect(context, CGRectMake(origin.x + _selectedCol * d, 
-                                          origin.y + _selectedRow * d, 
-                                          d, d));
 }
 
 

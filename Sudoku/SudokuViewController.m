@@ -16,6 +16,7 @@
 @synthesize boardView = _boardView;
 @synthesize buttonView = _buttonView;
 @synthesize boardModel = _boardModel;
+@synthesize pencilEnabled = _pencilEnabled;
 
 - (void)didReceiveMemoryWarning
 {
@@ -29,6 +30,7 @@
 {
     NSLog(@"viewDidLoad");
     [super viewDidLoad];
+    _pencilEnabled = NO;
 	// Do any additional setup after loading the view, typically from a nib.
     _boardView = [[BoardView alloc] initWithFrame:CGRectMake(0, 0, 320, 320) AndBoardModel:_boardModel];
     [_boardView setBackgroundColor:[UIColor whiteColor]];
@@ -38,9 +40,6 @@
     
     // Add buttons to buttonView
     for (int i = 0; i < 9; i++) {
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextSetLineWidth(context, 2);
-        [[UIColor blackColor] setStroke];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.titleLabel.font = [UIFont boldSystemFontOfSize:30];
         NSString *title = [NSString stringWithFormat:@"%d", i+1];
@@ -50,6 +49,7 @@
         [button setBackgroundColor:[UIColor whiteColor]];
         [button.layer setBorderWidth:3.0];
         [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
+        [button addTarget:self action:@selector(numberPressed:) forControlEvents:UIControlEventTouchUpInside];
         button.tag = i+1;
         //[button setBackgroundColor:[UIColor whiteColor]];
 
@@ -63,7 +63,14 @@
     [button.layer setBorderWidth:3.0];
     [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
     [button setImage:[UIImage imageNamed:@"pencil.png"] forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor whiteColor]];
+    [button addTarget:self action:@selector(pencilPressed:) forControlEvents:UIControlEventTouchUpInside];
+    if (_pencilEnabled) {
+        [button setBackgroundColor:[UIColor grayColor]];
+    } else {
+        [button setBackgroundColor:[UIColor whiteColor]];
+    }
+    
+    
     [_buttonView addSubview:button];
     
     button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -73,6 +80,7 @@
     [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
     [button setImage:[UIImage imageNamed:@"text_cancel.png"] forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor whiteColor]];
+    [button addTarget:self action:@selector(clearCellPressed:) forControlEvents:UIControlEventTouchUpInside];
     [_buttonView addSubview:button];
     
     button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -82,6 +90,7 @@
     [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
     [button setImage:[UIImage imageNamed:@"menu-i.gif.png"] forState:UIControlStateNormal];
     [button setBackgroundColor:[UIColor whiteColor]];
+    [button addTarget:self action:@selector(menuPressed:) forControlEvents:UIControlEventTouchUpInside];
     [_buttonView addSubview:button];
 
     [self.view addSubview:_buttonView];
@@ -117,7 +126,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return YES;
 }
 
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
@@ -128,6 +137,31 @@
         _boardView.frame = CGRectMake(0, 0, 300, 300);
         _buttonView.frame = CGRectMake(300, 0, 180, 300);
     }
+}
+
+- (IBAction)pencilPressed:(UIButton *)sender {
+    NSLog(@"pencilPressed:");
+    _pencilEnabled = sender.selected = !_pencilEnabled;
+    if (_pencilEnabled) {
+        [sender setBackgroundColor:[UIColor grayColor]];
+    } else {
+        [sender setBackgroundColor:[UIColor whiteColor]];
+    }
+    sender.highlighted = NO;
+    [_buttonView setNeedsDisplay];
+}
+
+- (IBAction)numberPressed:(UIButton *)sender {
+    NSLog(@"numberPressed:");
+    
+}
+
+- (IBAction)clearCellPressed:(UIButton *)sender {
+    NSLog(@"clearCellPressed:");
+}
+
+- (IBAction)menuPressed:(UIButton *)sender {
+    NSLog(@"menuPressed:");
 }
 
 @end
