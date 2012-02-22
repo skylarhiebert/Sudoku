@@ -10,6 +10,9 @@
 		141BAE4C14F1AC0C00FAB375 /* BoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 141BAE4B14F1AC0C00FAB375 /* BoardView.m */; };
 		141BAE5414F1BFCF00FAB375 /* SudokuBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 141BAE5314F1BFCF00FAB375 /* SudokuBoard.m */; };
 		141BAE5714F1C79900FAB375 /* ButtonsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 141BAE5614F1C79800FAB375 /* ButtonsView.m */; };
+		147E6D6B14F5744A00CDA994 /* BoardTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 147E6D6A14F5744A00CDA994 /* BoardTile.m */; };
+		147E6D6E14F5A91200CDA994 /* hard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 147E6D6D14F5A91200CDA994 /* hard.plist */; };
+		147E6D7014F5A91700CDA994 /* simple.plist in Resources */ = {isa = PBXBuildFile; fileRef = 147E6D6F14F5A91700CDA994 /* simple.plist */; };
 		149ED5E514F4534400700E4A /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = 149ED5E414F4534400700E4A /* pencil.png */; };
 		149ED5E814F453B800700E4A /* menu-i.gif in Resources */ = {isa = PBXBuildFile; fileRef = 149ED5E714F453B800700E4A /* menu-i.gif */; };
 		149ED5EA14F453E100700E4A /* text_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 149ED5E914F453E100700E4A /* text_cancel.png */; };
@@ -31,6 +34,10 @@
 		141BAE5314F1BFCF00FAB375 /* SudokuBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SudokuBoard.m; sourceTree = "<group>"; };
 		141BAE5514F1C79800FAB375 /* ButtonsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonsView.h; sourceTree = "<group>"; };
 		141BAE5614F1C79800FAB375 /* ButtonsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonsView.m; sourceTree = "<group>"; };
+		147E6D6914F5744A00CDA994 /* BoardTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardTile.h; sourceTree = "<group>"; };
+		147E6D6A14F5744A00CDA994 /* BoardTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardTile.m; sourceTree = "<group>"; };
+		147E6D6D14F5A91200CDA994 /* hard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = hard.plist; sourceTree = "<group>"; };
+		147E6D6F14F5A91700CDA994 /* simple.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = simple.plist; sourceTree = "<group>"; };
 		149ED5E414F4534400700E4A /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil.png; sourceTree = "<group>"; };
 		149ED5E714F453B800700E4A /* menu-i.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "menu-i.gif"; sourceTree = "<group>"; };
 		149ED5E914F453E100700E4A /* text_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = text_cancel.png; sourceTree = "<group>"; };
@@ -96,20 +103,24 @@
 		300F3A5F14E4823500314AEA /* Sudoku */ = {
 			isa = PBXGroup;
 			children = (
+				147E6D6F14F5A91700CDA994 /* simple.plist */,
+				147E6D6D14F5A91200CDA994 /* hard.plist */,
 				300F3A6814E4823500314AEA /* SudokuAppDelegate.h */,
 				300F3A6914E4823500314AEA /* SudokuAppDelegate.m */,
 				141BAE4A14F1AC0C00FAB375 /* BoardView.h */,
 				141BAE4B14F1AC0C00FAB375 /* BoardView.m */,
 				300F3A6B14E4823500314AEA /* SudokuViewController.h */,
 				300F3A6C14E4823500314AEA /* SudokuViewController.m */,
+				300F3A6E14E4823500314AEA /* SudokuViewController.xib */,
 				141BAE5214F1BFCF00FAB375 /* SudokuBoard.h */,
 				141BAE5314F1BFCF00FAB375 /* SudokuBoard.m */,
+				147E6D6914F5744A00CDA994 /* BoardTile.h */,
+				147E6D6A14F5744A00CDA994 /* BoardTile.m */,
 				141BAE5514F1C79800FAB375 /* ButtonsView.h */,
 				141BAE5614F1C79800FAB375 /* ButtonsView.m */,
 				149ED5E714F453B800700E4A /* menu-i.gif */,
 				149ED5E414F4534400700E4A /* pencil.png */,
 				149ED5E914F453E100700E4A /* text_cancel.png */,
-				300F3A6E14E4823500314AEA /* SudokuViewController.xib */,
 				300F3A6014E4823500314AEA /* Supporting Files */,
 			);
 			path = Sudoku;
@@ -182,6 +193,8 @@
 				149ED5E514F4534400700E4A /* pencil.png in Resources */,
 				149ED5E814F453B800700E4A /* menu-i.gif in Resources */,
 				149ED5EA14F453E100700E4A /* text_cancel.png in Resources */,
+				147E6D6E14F5A91200CDA994 /* hard.plist in Resources */,
+				147E6D7014F5A91700CDA994 /* simple.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +211,7 @@
 				141BAE4C14F1AC0C00FAB375 /* BoardView.m in Sources */,
 				141BAE5414F1BFCF00FAB375 /* SudokuBoard.m in Sources */,
 				141BAE5714F1C79900FAB375 /* ButtonsView.m in Sources */,
+				147E6D6B14F5744A00CDA994 /* BoardTile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +285,7 @@
 		300F3A7414E4823500314AEA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_OBJCPP_ARC_ABI = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sudoku/Sudoku-Prefix.pch";
 				INFOPLIST_FILE = "Sudoku/Sudoku-Info.plist";
@@ -282,6 +297,7 @@
 		300F3A7514E4823500314AEA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_OBJCPP_ARC_ABI = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Sudoku/Sudoku-Prefix.pch";
 				INFOPLIST_FILE = "Sudoku/Sudoku-Info.plist";

@@ -12,10 +12,10 @@
 
 @interface BoardView : UIView
 
-@property (weak, nonatomic) SudokuBoard *boardModel;
+@property (strong, nonatomic) SudokuBoard *boardModel;
 @property (assign) NSInteger selectedRow;
 @property (assign) NSInteger selectedCol;
 
-- (id) initWithFrame:(CGRect)frame AndBoardModel:(SudokuBoard *)boardModel;
+-(void) selectFirstAvailableCell;
 
 @end

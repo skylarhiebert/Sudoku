@@ -10,6 +10,14 @@
 #import "SudokuViewController.h"
 #import "BoardView.h"
 #import "ButtonsView.h"
+#import "SudokuBoard.h"
+
+@interface SudokuViewController() 
+
+- (NSString *)randomSimpleGame; 
+- (NSString *)randomHardGame; 
+   
+@end
 
 @implementation SudokuViewController
 
@@ -17,6 +25,8 @@
 @synthesize buttonView = _buttonView;
 @synthesize boardModel = _boardModel;
 @synthesize pencilEnabled = _pencilEnabled;
+@synthesize simpleGames = _simpleGames;
+@synthesize hardGames = _hardGames;
 
 - (void)didReceiveMemoryWarning
 {
@@ -31,12 +41,21 @@
     NSLog(@"viewDidLoad");
     [super viewDidLoad];
     _pencilEnabled = NO;
+    _boardModel = [[SudokuBoard alloc] init];
 	// Do any additional setup after loading the view, typically from a nib.
-    _boardView = [[BoardView alloc] initWithFrame:CGRectMake(0, 0, 320, 320) AndBoardModel:_boardModel];
+    _boardView = [[BoardView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+    _boardView.boardModel = _boardModel;
     [_boardView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:_boardView];
     _buttonView = [[ButtonsView alloc] initWithFrame:CGRectMake(0, 320, 320, 140)];
-    [_buttonView setBackgroundColor:[UIColor grayColor]];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"simple" ofType:@"plist"];
+    _simpleGames = [[NSArray alloc] initWithContentsOfFile:path];
+    path = [[NSBundle mainBundle] pathForResource:@"hard" ofType:@"plist"];
+    _hardGames = [[NSArray alloc] initWithContentsOfFile:path];
+    
+    [_boardModel freshGame:[self randomSimpleGame]];
+    [_boardView selectFirstAvailableCell];
     
     // Add buttons to buttonView
     for (int i = 0; i < 9; i++) {
@@ -152,16 +171,64 @@
 }
 
 - (IBAction)numberPressed:(UIButton *)sender {
-    NSLog(@"numberPressed:");
-    
+    NSLog(@"numberPressed:%i", sender.tag);
+    if (_pencilEnabled) {
+        [_boardModel setPencil:sender.tag AtRow:[_boardView selectedRow] Column:[_boardView selectedCol]];
+    } else {
+        [_boardModel setNumber:sender.tag AtRow:[_boardView selectedRow] Column:[_boardView selectedCol]];
+        
+    }
+    [_boardView setNeedsDisplay];
 }
 
 - (IBAction)clearCellPressed:(UIButton *)sender {
     NSLog(@"clearCellPressed:");
+    const int row = [_boardView selectedRow];
+    const int col = [_boardView selectedCol];
+    [_boardModel clearAllPencilsAtRow:row Column:col];
+    [_boardModel clearNumberAtRow:row Column:col];
+
+    [_boardView setNeedsDisplay];
 }
 
 - (IBAction)menuPressed:(UIButton *)sender {
     NSLog(@"menuPressed:");
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Main Menu" 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"Cancel" 
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"New Easy Game", @"New Hard Game", @"Clear Conflicting Cells", @"Clear All Cells", nil];
+    [sheet showInView:self.view];
+
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        NSLog(@"Cancel Button");
+    } else {
+        if ([actionSheet buttonTitleAtIndex:buttonIndex] == @"New Easy Game") {
+            NSLog(@"New Easy Game Button");
+        } else if ([actionSheet buttonTitleAtIndex:buttonIndex] == @"New Hard Game") {
+            NSLog(@"New Hard Game Button");
+        } else if ([actionSheet buttonTitleAtIndex:buttonIndex] == @"Clear Conflicting Cells") {
+            NSLog(@"Clear Conflicting Cells");
+        } else if ([actionSheet buttonTitleAtIndex:buttonIndex] == @"Clear All Cells") {
+            NSLog(@"Clear All Cells");
+        }
+    }
+    
+}
+
+- (NSString *)randomSimpleGame {
+    const int n = [_simpleGames count];
+    const int i = arc4random() % n;
+    return [_simpleGames objectAtIndex:i];
+}
+
+- (NSString *)randomHardGame {
+    const int n = [_hardGames count];
+    const int i = arc4random() % n;
+    return [_hardGames objectAtIndex:i];
 }
 
 @end
