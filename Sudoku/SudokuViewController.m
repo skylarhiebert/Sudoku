@@ -161,9 +161,17 @@
     NSLog(@"clearCellPressed:");
     const int row = [_boardView selectedRow];
     const int col = [_boardView selectedCol];
-    [_boardModel clearAllPencilsAtRow:row Column:col];
-    [_boardModel clearNumberAtRow:row Column:col];
-
+    if ([_boardModel numberOfPencilsAtRow:row Column:col] > 1) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Deleting all penciled in numbers" 
+                                                        message:@"Are you sure?" 
+                                                       delegate:self 
+                                              cancelButtonTitle:@"Cancel" 
+                                              otherButtonTitles:@"Yes", nil];
+        [alert setTag:1];
+        [alert show];
+    } else {
+        [_boardModel clearNumberAtRow:row Column:col];
+    }
     [_boardView setNeedsDisplay];
 }
 
@@ -203,6 +211,7 @@
                                                            delegate:self 
                                                   cancelButtonTitle:@"No" 
                                                   otherButtonTitles:@"Yes", nil];
+            [alert setTag:0];
             [alert show];
         }
     }
@@ -210,10 +219,20 @@
 }
 
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != [actionSheet cancelButtonIndex]) { // Yes
-        [_boardModel clearAllEditableCells];
-        [_boardView setNeedsDisplay];
-    } 
+    if ([actionSheet tag] == 0) {
+        NSLog(@"actionSheet tag == 0");
+        if (buttonIndex != [actionSheet cancelButtonIndex]) { // Yes
+            [_boardModel clearAllEditableCells];
+            [_boardView setNeedsDisplay];
+        } 
+    } else {
+        NSLog(@"actionSheet tag != 0 buttonIndex != cancelButtonIndex:%d", buttonIndex != [actionSheet cancelButtonIndex]);
+        if (buttonIndex != [actionSheet cancelButtonIndex]) { // Yes
+            [_boardModel clearAllPencilsAtRow:[_boardView selectedRow] Column:[_boardView selectedCol]];
+            [_boardView setNeedsDisplay];
+        } 
+    }
+
 }
 
 - (NSString *)randomSimpleGame {

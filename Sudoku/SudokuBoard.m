@@ -61,7 +61,7 @@
         }
         if ([tile number] > 0 && [tile number] == n) {
             [tile setNumber:0];
-        } else {
+        } else if ([tile number] == 0) {
             [tile setNumber:n];
         }
     }
@@ -143,12 +143,13 @@
 - (void) setPencil:(int)n AtRow:(int)row Column:(int)col { // Pencil the value n in.
     // Set pencil if not set, else clear it
     BoardTile *tile = [_board objectAtIndex:row * 9 + col];
-    if ([tile isSetPencil:n]) {
-        [tile clearPencil:n];
-    } else {
-        [tile setPencil:n];
+    if ([tile number] == 0) {
+        if ([tile isSetPencil:n]) {
+            [tile clearPencil:n];
+        } else {
+            [tile setPencil:n];
+        }
     }
-    [tile setNumber:0];
 }
 
 - (void) clearPencil:(int)n AtRow:(int)row Column:(int)col { // Clear pencil value n
