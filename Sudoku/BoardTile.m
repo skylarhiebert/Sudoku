@@ -22,6 +22,7 @@
         editable = YES;
         pencils = NO;
         // initialize pencils array with all 0s
+        pencil_marks = [[NSMutableArray alloc] init];
         for (int j = 0; j < 9; j++) {
             [pencil_marks insertObject:[NSNumber numberWithInt:0] atIndex:j];
         }
@@ -50,8 +51,8 @@
     [pencil_marks replaceObjectAtIndex:n-1 withObject:[NSNumber numberWithInt:n]];
 }
 
-- (BOOL) pencilSet:(int)n {
-    return [[pencil_marks objectAtIndex:n-1] intValue] == 0;
+- (BOOL) isSetPencil:(int)n {
+    return [[pencil_marks objectAtIndex:n-1] intValue] != 0;
 }
 
 - (int) pencilsCount {
@@ -63,6 +64,7 @@
             }
         }
     }
+
     return count;
 }
 

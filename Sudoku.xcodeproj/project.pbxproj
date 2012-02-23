@@ -16,6 +16,10 @@
 		149ED5E514F4534400700E4A /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = 149ED5E414F4534400700E4A /* pencil.png */; };
 		149ED5E814F453B800700E4A /* menu-i.gif in Resources */ = {isa = PBXBuildFile; fileRef = 149ED5E714F453B800700E4A /* menu-i.gif */; };
 		149ED5EA14F453E100700E4A /* text_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 149ED5E914F453E100700E4A /* text_cancel.png */; };
+		14B6B95514F602F7004EF79C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B6B95414F602F7004EF79C /* Default.png */; };
+		14B6B95814F603A0004EF79C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B6B95714F603A0004EF79C /* Default@2x.png */; };
+		14B6B95A14F6041B004EF79C /* Sudoku_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B6B95914F6041B004EF79C /* Sudoku_Icon.png */; };
+		14B6B95C14F6041E004EF79C /* Sudoku_Iconx2.png in Resources */ = {isa = PBXBuildFile; fileRef = 14B6B95B14F6041E004EF79C /* Sudoku_Iconx2.png */; };
 		14BDCB5214F4327B00D792D1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14BDCB5114F4327B00D792D1 /* QuartzCore.framework */; };
 		300F3A5A14E4823500314AEA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 300F3A5914E4823500314AEA /* UIKit.framework */; };
 		300F3A5C14E4823500314AEA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 300F3A5B14E4823500314AEA /* Foundation.framework */; };
@@ -41,6 +45,10 @@
 		149ED5E414F4534400700E4A /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil.png; sourceTree = "<group>"; };
 		149ED5E714F453B800700E4A /* menu-i.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "menu-i.gif"; sourceTree = "<group>"; };
 		149ED5E914F453E100700E4A /* text_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = text_cancel.png; sourceTree = "<group>"; };
+		14B6B95414F602F7004EF79C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		14B6B95714F603A0004EF79C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		14B6B95914F6041B004EF79C /* Sudoku_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sudoku_Icon.png; sourceTree = "<group>"; };
+		14B6B95B14F6041E004EF79C /* Sudoku_Iconx2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sudoku_Iconx2.png; sourceTree = "<group>"; };
 		14BDCB5114F4327B00D792D1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		300F3A5514E4823500314AEA /* Sudoku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sudoku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		300F3A5914E4823500314AEA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -75,6 +83,10 @@
 		300F3A4A14E4823500314AEA = {
 			isa = PBXGroup;
 			children = (
+				14B6B95B14F6041E004EF79C /* Sudoku_Iconx2.png */,
+				14B6B95914F6041B004EF79C /* Sudoku_Icon.png */,
+				14B6B95714F603A0004EF79C /* Default@2x.png */,
+				14B6B95414F602F7004EF79C /* Default.png */,
 				14BDCB5114F4327B00D792D1 /* QuartzCore.framework */,
 				300F3A5F14E4823500314AEA /* Sudoku */,
 				300F3A5814E4823500314AEA /* Frameworks */,
@@ -195,6 +207,10 @@
 				149ED5EA14F453E100700E4A /* text_cancel.png in Resources */,
 				147E6D6E14F5A91200CDA994 /* hard.plist in Resources */,
 				147E6D7014F5A91700CDA994 /* simple.plist in Resources */,
+				14B6B95514F602F7004EF79C /* Default.png in Resources */,
+				14B6B95814F603A0004EF79C /* Default@2x.png in Resources */,
+				14B6B95A14F6041B004EF79C /* Sudoku_Icon.png in Resources */,
+				14B6B95C14F6041E004EF79C /* Sudoku_Iconx2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

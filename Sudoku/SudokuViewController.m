@@ -40,77 +40,53 @@
 {
     NSLog(@"viewDidLoad");
     [super viewDidLoad];
-    _pencilEnabled = NO;
-    _boardModel = [[SudokuBoard alloc] init];
-	// Do any additional setup after loading the view, typically from a nib.
-    _boardView = [[BoardView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
-    _boardView.boardModel = _boardModel;
-    [_boardView setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:_boardView];
-    _buttonView = [[ButtonsView alloc] initWithFrame:CGRectMake(0, 320, 320, 140)];
-    
+    // Do any additional setup after loading the view, typically from a nib.
+    // Initialize games arrays
     NSString *path = [[NSBundle mainBundle] pathForResource:@"simple" ofType:@"plist"];
     _simpleGames = [[NSArray alloc] initWithContentsOfFile:path];
     path = [[NSBundle mainBundle] pathForResource:@"hard" ofType:@"plist"];
     _hardGames = [[NSArray alloc] initWithContentsOfFile:path];
     
-    [_boardModel freshGame:[self randomSimpleGame]];
+    // Initialize Board Model
+    _pencilEnabled = NO;
+    _boardModel = [[SudokuBoard alloc] init];
+        [_boardModel freshGame:[self randomSimpleGame]];
+
+    // Create BoardView
+    _boardView = [[BoardView alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
+    _boardView.boardModel = _boardModel;
+    [_boardView setBackgroundColor:[UIColor whiteColor]];
     [_boardView selectFirstAvailableCell];
+    [self.view addSubview:_boardView];
+    
+    // Create ButtonView
+    _buttonView = [[ButtonsView alloc] initWithFrame:CGRectMake(0, 320, 320, 140)];
     
     // Add buttons to buttonView
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 12; i++) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.titleLabel.font = [UIFont boldSystemFontOfSize:30];
-        NSString *title = [NSString stringWithFormat:@"%d", i+1];
-        [button setTitle:title forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [button setBackgroundColor:[UIColor whiteColor]];
         [button.layer setBorderWidth:3.0];
         [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
-        [button addTarget:self action:@selector(numberPressed:) forControlEvents:UIControlEventTouchUpInside];
+        if (i < 9) {
+            button.titleLabel.font = [UIFont boldSystemFontOfSize:30];
+            NSString *title = [NSString stringWithFormat:@"%d", i+1];
+            [button setTitle:title forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(numberPressed:) forControlEvents:UIControlEventTouchUpInside];
+        } else if (i == 9) { // Pencil
+            [button setImage:[UIImage imageNamed:@"pencil.png"] forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(pencilPressed:) forControlEvents:UIControlEventTouchUpInside];
+        } else if (i == 10) { // Clear Cell
+            [button setImage:[UIImage imageNamed:@"text_cancel.png"] forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(clearCellPressed:) forControlEvents:UIControlEventTouchUpInside];
+        } else { // Menu
+            [button setImage:[UIImage imageNamed:@"menu-i.gif.png"] forState:UIControlStateNormal];
+            [button addTarget:self action:@selector(menuPressed:) forControlEvents:UIControlEventTouchUpInside];
+        }
         button.tag = i+1;
-        //[button setBackgroundColor:[UIColor whiteColor]];
-
-        //[button s
         [_buttonView addSubview:button];
     }
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.titleLabel.font = [UIFont boldSystemFontOfSize:30];
-    button.tag = 10;
-    [button.layer setBorderWidth:3.0];
-    [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [button setImage:[UIImage imageNamed:@"pencil.png"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(pencilPressed:) forControlEvents:UIControlEventTouchUpInside];
-    if (_pencilEnabled) {
-        [button setBackgroundColor:[UIColor grayColor]];
-    } else {
-        [button setBackgroundColor:[UIColor whiteColor]];
-    }
-    
-    
-    [_buttonView addSubview:button];
-    
-    button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.titleLabel.font = [UIFont boldSystemFontOfSize:30];
-    button.tag = 11;
-    [button.layer setBorderWidth:3.0];
-    [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [button setImage:[UIImage imageNamed:@"text_cancel.png"] forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor whiteColor]];
-    [button addTarget:self action:@selector(clearCellPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_buttonView addSubview:button];
-    
-    button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.titleLabel.font = [UIFont boldSystemFontOfSize:30];
-    button.tag = 12;
-    [button.layer setBorderWidth:3.0];
-    [button.layer setBorderColor:[[UIColor blackColor] CGColor]];
-    [button setImage:[UIImage imageNamed:@"menu-i.gif.png"] forState:UIControlStateNormal];
-    [button setBackgroundColor:[UIColor whiteColor]];
-    [button addTarget:self action:@selector(menuPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [_buttonView addSubview:button];
 
     [self.view addSubview:_buttonView];
 }
@@ -208,15 +184,36 @@
     } else {
         if ([actionSheet buttonTitleAtIndex:buttonIndex] == @"New Easy Game") {
             NSLog(@"New Easy Game Button");
+            [_boardModel freshGame:[self randomSimpleGame]];
+            [_boardView selectFirstAvailableCell];
+            [_boardView setNeedsDisplay];
         } else if ([actionSheet buttonTitleAtIndex:buttonIndex] == @"New Hard Game") {
             NSLog(@"New Hard Game Button");
+            [_boardModel freshGame:[self randomHardGame]];
+            [_boardView selectFirstAvailableCell];
+            [_boardView setNeedsDisplay];
         } else if ([actionSheet buttonTitleAtIndex:buttonIndex] == @"Clear Conflicting Cells") {
             NSLog(@"Clear Conflicting Cells");
+            [_boardModel clearAllConflictingCells];
+            [_boardView setNeedsDisplay];
         } else if ([actionSheet buttonTitleAtIndex:buttonIndex] == @"Clear All Cells") {
             NSLog(@"Clear All Cells");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" 
+                                                            message:@"Are you sure you want to clear all of the cells?" 
+                                                           delegate:self 
+                                                  cancelButtonTitle:@"No" 
+                                                  otherButtonTitles:@"Yes", nil];
+            [alert show];
         }
     }
     
+}
+
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != [actionSheet cancelButtonIndex]) { // Yes
+        [_boardModel clearAllEditableCells];
+        [_boardView setNeedsDisplay];
+    } 
 }
 
 - (NSString *)randomSimpleGame {

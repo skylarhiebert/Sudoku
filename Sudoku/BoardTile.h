@@ -18,7 +18,7 @@
 - (void) clearAllPencilMarks;
 - (void) clearPencil:(int)n;
 - (void) setPencil:(int)n;
-- (BOOL) pencilSet:(int)n;
+- (BOOL) isSetPencil:(int)n;
 - (int) pencilsCount;
 
 @end

@@ -31,7 +31,7 @@
 }
 
 -(void) addTapGestureRecognizer {
-    NSLog(@"addTapGestureRecognizer:boardView");
+    //NSLog(@"addTapGestureRecognizer:boardView");
     fingerTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleFingerTap:)];
     fingerTapRecognizer.numberOfTapsRequired = 1;
     [self addGestureRecognizer:fingerTapRecognizer];
@@ -39,7 +39,7 @@
 }
 
 -(void) handleFingerTap:(UIGestureRecognizer*)sender {
-    NSLog(@"handleFingerTap:");
+    //NSLog(@"handleFingerTap:");
     const CGPoint tapPoint = [sender locationInView:sender.view];
     const CGRect myBounds = [self bounds];
     const CGFloat gridSize = (myBounds.size.width < myBounds.size.height) ? myBounds.size.width : myBounds.size.height;
@@ -68,6 +68,7 @@
             if (![_boardModel numberIsFixedAtRow:i Column:j]) {
                 _selectedCol = j;
                 _selectedRow = i;
+                return;
             }
         }
     }
@@ -78,7 +79,6 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    NSLog(@"drawRect:");
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     const CGRect myBounds = [self bounds];
@@ -116,7 +116,7 @@
                     CGContextStrokePath(context);
                     
                     int number = [_boardModel numberAtRow:nRow Column:nCol];
-                    if (number != 0 && ![_boardModel anyPencilsSetAtRow:dRow Column:dCol]) {
+                    if (number != 0 && ![_boardModel anyPencilsSetAtRow:nRow Column:nCol]) {
                         UIFont *font = [UIFont boldSystemFontOfSize:30];
                         if ([_boardModel numberIsFixedAtRow:nRow Column:nCol]) {
                             [[UIColor blackColor] setFill];
@@ -131,7 +131,7 @@
                         const CGFloat y = origin.y + nRow * d + 0.5*(d - textSize.height);
                         const CGRect textRect = CGRectMake(x, y, textSize.width, textSize.height);
                         [text drawInRect:textRect withFont:font];
-                    } else if ([_boardModel anyPencilsSetAtRow:dRow Column:dCol]) { // Draw internal s grid
+                    } else if ([_boardModel anyPencilsSetAtRow:nRow Column:nCol]) { // Draw internal s grid
                         for (int sRow = 0; sRow < 3; sRow++) {
                             for (int sCol = 0; sCol < 3 ; sCol++) {
                                 CGContextSetLineWidth(context, 1);
@@ -141,7 +141,7 @@
                                                                      s, s));
                                 CGContextStrokePath(context);
                                 const int sNum = sRow * 3 + sCol + 1;
-                                if ([_boardModel isSetPencil:sNum AtRow:dRow Column:dCol]) {
+                                if ([_boardModel isSetPencil:sNum AtRow:nRow Column:nCol]) {
                                     UIFont *font = [UIFont boldSystemFontOfSize:12];
                                     [[UIColor blackColor] setFill];
                                     const NSString *text = [NSString stringWithFormat:@"%d", sNum];

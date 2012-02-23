@@ -26,6 +26,7 @@
 - (void) setPencil:(int)n AtRow:(int)row Column:(int)col; // Pencil the value n in.
 - (void) clearPencil:(int)n AtRow:(int)row Column:(int)col; // Clear pencil value n
 - (void) clearAllPencilsAtRow:(int)row Column:(int)col; // Clear all penciled in values
-
+- (void) clearAllConflictingCells; // Clears all cells that are considered conflicting
+- (void) clearAllEditableCells; // Clears all editable cells
 
 @end

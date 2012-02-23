@@ -16,7 +16,7 @@
 - (id) init { // Create empty board
     self = [super init];
     if (self) {
-        self.board = [[NSMutableArray alloc] init];
+        _board = [[NSMutableArray alloc] init];
         // initialize _board array with all 0s and all tiles editable
         for (int i = 0; i < 81; i++) {
             BoardTile *tile = [[BoardTile alloc] init];
@@ -24,7 +24,6 @@
             if (tile.number == 5) {
                 tile.editable = NO;
             }
-            NSLog(@"Initializing tile %i; editable?:%d", tile.number, tile.editable);
             [_board insertObject:tile atIndex:i];
         }
     }
@@ -33,9 +32,7 @@
 }
 
 - (void) freshGame:(NSString *)boardString { // Load a new game encoded with given string
-    for (int i = 0; i < boardString.length; i++) {
-        NSLog(@"%i", [boardString characterAtIndex:i]);
-        
+    for (int i = 0; i < boardString.length; i++) {    
         BoardTile *tile = [_board objectAtIndex:i];
         int num = [boardString characterAtIndex:i];
         
@@ -52,17 +49,21 @@
 }
 
 - (int) numberAtRow:(int)row Column:(int)col { // Fetch the number stored in the cell { Zero indicates empty
-    //NSLog(@"numberAtRow:%i Column:%i", row, col);
    return [[_board objectAtIndex:row * 9 + col] number];
 }
 
 - (void) setNumber:(int)n AtRow:(int)row Column:(int)col { // Set the number at cell 
     BoardTile *tile = [_board objectAtIndex:row * 9 + col];
-
-    NSLog(@"setNumber:%i AtRow:%i Column:%i editable?:%d", n, row, col, tile.editable);
-    
-    if (tile.editable) {
-        tile.number = n;
+   
+    if ([tile editable]) {
+        if ([tile pencils]) {
+            [tile clearAllPencilMarks];
+        }
+        if ([tile number] > 0 && [tile number] == n) {
+            [tile setNumber:0];
+        } else {
+            [tile setNumber:n];
+        }
     }
 }
 
@@ -74,7 +75,6 @@
 }
 
 - (BOOL) numberIsFixedAtRow:(int)row Column:(int)col { // Determines if fixed number at cell
-    //NSLog(@"numberIsFixedAtRow:(%d) Column:(%d)[%d]:%d", row, col, [[_board objectAtIndex:row*9+col] number], ![[_board objectAtIndex:row * 9 + col] editable]);
     return ![[_board objectAtIndex:row * 9 + col] editable];
 }
 
@@ -95,8 +95,37 @@
     }
     
     // Check 3x3 conflict
-    
+    const int tRow = row - row % 3;
+    const int tCol = col - col % 3;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            int index = (tRow + i) * 9 + tCol + j;
+            if ([[_board objectAtIndex:index] number] == num && tRow * 9 + i != row && tCol + j != col) {
+                return YES;
+            }
+        }
+    }
     return NO;
+}
+
+- (void) clearAllConflictingCells {
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (![self numberIsFixedAtRow:i Column:j] && [self isConflictingEntryAtRow:i Column:j]) {
+                [self clearNumberAtRow:i Column:j];
+            }
+        }
+    }
+}
+
+- (void) clearAllEditableCells {
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (![self numberIsFixedAtRow:i Column:j]) {
+                [self clearNumberAtRow:i Column:j];
+            }
+        }
+    }
 }
 
 - (BOOL) anyPencilsSetAtRow:(int)row Column:(int)col { // Are there any penciled values?
@@ -108,12 +137,18 @@
 }
 
 - (BOOL) isSetPencil:(int)n AtRow:(int)row Column:(int)col { // Is the value n penciled in?
-    return [[_board objectAtIndex:row * 9 + col] pencilSet:n];
+    return [[_board objectAtIndex:row * 9 + col] isSetPencil:n];
 }
 
 - (void) setPencil:(int)n AtRow:(int)row Column:(int)col { // Pencil the value n in.
-    NSLog(@"setPencil:%d AtRow:%d Column:%d", n, row, col);
-    [[_board objectAtIndex:row * 9 + col] setPencil:n];
+    // Set pencil if not set, else clear it
+    BoardTile *tile = [_board objectAtIndex:row * 9 + col];
+    if ([tile isSetPencil:n]) {
+        [tile clearPencil:n];
+    } else {
+        [tile setPencil:n];
+    }
+    [tile setNumber:0];
 }
 
 - (void) clearPencil:(int)n AtRow:(int)row Column:(int)col { // Clear pencil value n
